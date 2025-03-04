@@ -63,6 +63,7 @@ iframe {
 
     max-height: 393px;
     max-width: 683px;
+    overflow: auto
 }
 
 aside {
