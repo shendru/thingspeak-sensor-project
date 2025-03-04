@@ -5,6 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        const seconds = 10
+
+        function formatDate(isoString) {
+        let date = new Date(isoString)
+        let options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        }
+            return date.toLocaleString('en-US', options)
+        }
+
+        async function fetchThingSpeakData() {
+            console.log("I'm being called")
+            const channelID = '2861742'
+            const fieldNumber = '1'
+            const apiKey = '4TI2F6N48W4B5BDC'
+            const url = `https://api.thingspeak.com/channels/${channelID}/feeds.json?results=10&api_key=${apiKey}`
+
+            try {
+                let response = await fetch(url)
+                let data = await response.json()
+                let feeds = data.feeds
+                let tableBody = document.getElementById('dataTableBody')
+                tableBody.innerHTML = ''
+                
+                feeds.forEach(feed => {
+                    let row = `<tr>
+                                <td>${formatDate(feed.created_at)}</td>
+                                <td>${feed.field1 || 'N/A'} ℃</td>
+                                <td>${feed.field2 || 'N/A'}%</td>
+                                <td>${feed.field3 || 'N/A'}%</td>
+                                <td>${feed.field4 || 'N/A'}%</td>
+                              </tr>`
+                    tableBody.innerHTML += row
+                })
+            } catch (error) {
+                console.error('Error fetching data:', error)
+                document.getElementById('dataDisplay').innerHTML = 'Error fetching data. Please check your API key and channel ID.'
+            }
+        }
+        
+        window.onload = () => {
+            fetchThingSpeakData()
+            setInterval(fetchThingSpeakData, seconds * 1000)
+        }
+    </script>
 </head>
 <body>
         <!-- <aside>
@@ -12,7 +65,7 @@
             <h3>CastAndBern</h3>
         </aside> -->
         <main>
-            <h1>CastAndBern: Sensors Dashboard</h1>
+            <h1><u>CastAndBern: Sensors Dashboard</u></h1>
             <div id="main_div">
                 <div class="iframe_wrapper">
                     <div class="iframe_container">
@@ -22,6 +75,27 @@
                     <div class="iframe_container">
                         <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2861742/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
                         <iframe width="450" height="260" src="https://thingspeak.com/channels/2861742/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Moisture+Level+in+Percent&type=line"></iframe>
+                    </div>
+                    
+                    <div>
+                        <h2 style="margin-bottom: 30px;"><u>JavaScript Coded Data from Thinkspeak</u></h2>
+                        <!-- <div></div> -->
+                        <div class="table">
+                            <table border="5">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Temperature</th>
+                                        <th>Humidity</th>
+                                        <th>Soil Moisture</th>
+                                        <th>Watah Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dataTableBody">
+                                </tbody>
+                            </table>
+                        
+                        </div>
                     </div>
     
                 </div>

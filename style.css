@@ -52,24 +52,35 @@ iframe {
     background-color: #464646;
 }
 
+.table {
+    background: rgba( 255, 255, 255, 0.8 );
+    border-radius: 20px;
+    padding: 20px; 
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 5px );
+    -webkit-backdrop-filter: blur( 5px );
+}
+
 aside {
     width: 10%;
     border-right: 1px solid #464646;
 }
 
+.iframe_wrapper {
+    display: flex;
+    /* justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px; */
+    /* height: 100%; */
+    gap: 30px;
+}
+
 .iframe_container {
     gap: 30px;
     display: flex;
-    /* justify-content: center;
-    align-items: center;    */
-    flex-direction: row;
-}
-
-.iframe_wrapper {
-    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;   
     flex-direction: column;
-    gap: 30px;
-    /* height: 100%; */
 }
