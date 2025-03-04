@@ -33,7 +33,7 @@ main {
     /* background-color: #F1F1F9; */
     background: rgba( 241, 241, 249, 0.5 );
     /* height: 90vh; */
-    padding: 30px 30px 30px 30px;
+    padding: 30px;
     border-radius: 20px;
 
     /* display: flex;
@@ -61,7 +61,8 @@ iframe {
     backdrop-filter: blur( 5px );
     -webkit-backdrop-filter: blur( 5px );
 
-    max-height: 628px;
+    max-height: 393px;
+    max-width: 683px;
 }
 
 aside {
